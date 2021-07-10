@@ -22,15 +22,8 @@ class ChatLevels(QWidget):
     
     def setChatMix(self, sliderValue):
         self._levelLabel.setText(f'{sliderValue}')
-        if sliderValue < 0:
-            self._vmr.inputs[3].gain = 0
-            self._vmr.inputs[4].gain = sliderValue
-        elif sliderValue > 0:
-            self._vmr.inputs[3].gain = -sliderValue
-            self._vmr.inputs[4].gain = 0
-        else:
-            self._vmr.inputs[3].gain = 0
-            self._vmr.inputs[4].gain = 0
+        self._vmr.inputs[3].gain = min(0, -sliderValue)
+        self._vmr.inputs[4].gain = min(0, sliderValue)
 
     def initUI(self):
         layout = QVBoxLayout()
